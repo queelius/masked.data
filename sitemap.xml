@@ -34,7 +34,7 @@
     <loc>https://queelius.github.io/series_system_estimation_masked_data/reference/exp_series_md_1.html</loc>
   </url>
   <url>
-    <loc>https://queelius.github.io/series_system_estimation_masked_data/reference/guo_series_weibull_md.html</loc>
+    <loc>https://queelius.github.io/series_system_estimation_masked_data/reference/guo_weibull_series_md.html</loc>
   </url>
   <url>
     <loc>https://queelius.github.io/series_system_estimation_masked_data/reference/hazard_exp_series.html</loc>
@@ -52,9 +52,6 @@
     <loc>https://queelius.github.io/series_system_estimation_masked_data/reference/md_bernoulli_candidate_C1_C2_C3.html</loc>
   </url>
   <url>
-    <loc>https://queelius.github.io/series_system_estimation_masked_data/reference/md_grad_mle_series_C1_C2_C3.html</loc>
-  </url>
-  <url>
     <loc>https://queelius.github.io/series_system_estimation_masked_data/reference/md_info_exp_series_C1_C2_C3.html</loc>
   </url>
   <url>
@@ -67,7 +64,7 @@
     <loc>https://queelius.github.io/series_system_estimation_masked_data/reference/md_loglike_weibull_series_C1_C2_C3.html</loc>
   </url>
   <url>
-    <loc>https://queelius.github.io/series_system_estimation_masked_data/reference/md_mle_exp_series_C1_C2_C3.html</loc>
+    <loc>https://queelius.github.io/series_system_estimation_masked_data/reference/md_mle_series_C1_C2_C3.html</loc>
   </url>
   <url>
     <loc>https://queelius.github.io/series_system_estimation_masked_data/reference/md_score_exp_series_C1_C2_C3.html</loc>
