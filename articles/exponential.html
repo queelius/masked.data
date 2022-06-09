@@ -194,7 +194,7 @@ a function or procedure <code>p : integer -&gt; [0,1]</code>, defaults to <code>
 <span class="co">#&gt;     colnames(x) &lt;- paste0("x", 1:m)</span>
 <span class="co">#&gt;     md %&gt;% dplyr::bind_cols(x)</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x555ee0058760&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x55d95b18b408&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:series.system.estimation.masked.data&gt;</span></code></pre>
 </div>
 <div class="section level3">
@@ -223,18 +223,18 @@ a function or procedure <code>p : integer -&gt; [0,1]</code>, defaults to <code>
     <span class="fu"><a href="../reference/md_series_lifetime.html">md_series_lifetime</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 300 × 5</span></span>
-<span class="co">#&gt;        t1    t2    t3     k      t</span>
-<span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1.84   0.114 0.189     2 0.114 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 1.65   0.602 0.542     3 0.542 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1.12   0.910 0.942     2 0.910 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1.77   0.588 1.01      2 0.588 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 0.596  2.25  0.111     3 0.111 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.801  0.860 0.146     3 0.146 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 0.375  1.06  0.208     3 0.208 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.251  0.464 0.137     3 0.137 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 0.056<span style="text-decoration: underline;">5</span> 0.173 0.227     1 0.056<span style="text-decoration: underline;">5</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1.65   0.391 1.47      2 0.391 </span>
+<span class="co">#&gt;       t1     t2     t3     k      t</span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1.80  0.019<span style="text-decoration: underline;">0</span> 1.68       2 0.019<span style="text-decoration: underline;">0</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 0.690 0.433  0.309      3 0.309 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 0.955 0.834  1.40       2 0.834 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1.00  0.091<span style="text-decoration: underline;">7</span> 0.021<span style="text-decoration: underline;">6</span>     3 0.021<span style="text-decoration: underline;">6</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 3.40  0.840  0.038<span style="text-decoration: underline;">1</span>     3 0.038<span style="text-decoration: underline;">1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.448 0.917  0.340      3 0.340 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 0.229 1.22   0.251      1 0.229 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.348 0.453  0.133      3 0.133 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 3.22  1.01   0.469      3 0.469 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 0.408 0.049<span style="text-decoration: underline;">7</span> 0.633      2 0.049<span style="text-decoration: underline;">7</span></span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 290 more rows</span></span></code></pre></div>
 <p>In the above, we used the function <code>md_series_lifetime</code>. To get more help on it, type <code><a href="../reference/md_series_lifetime.html">?md_series_lifetime</a></code>.</p>
 <div class="section level3">
@@ -245,18 +245,18 @@ a function or procedure <code>p : integer -&gt; [0,1]</code>, defaults to <code>
 <code class="sourceCode R"><span class="va">md</span> <span class="op">&lt;-</span> <span class="va">md</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/md_bernoulli_candidate_C1_C2_C3.html">md_bernoulli_candidate_C1_C2_C3</a></span><span class="op">(</span><span class="va">m</span>, <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">.5</span>,<span class="va">n</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 300 × 8</span></span>
-<span class="co">#&gt;        t1    t2    t3     k      t x1    x2    x3   </span>
-<span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1.84   0.114 0.189     2 0.114  TRUE  TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 1.65   0.602 0.542     3 0.542  FALSE FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1.12   0.910 0.942     2 0.910  TRUE  TRUE  FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1.77   0.588 1.01      2 0.588  FALSE TRUE  FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 0.596  2.25  0.111     3 0.111  TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.801  0.860 0.146     3 0.146  TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 0.375  1.06  0.208     3 0.208  TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.251  0.464 0.137     3 0.137  FALSE TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 0.056<span style="text-decoration: underline;">5</span> 0.173 0.227     1 0.056<span style="text-decoration: underline;">5</span> TRUE  FALSE FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1.65   0.391 1.47      2 0.391  FALSE TRUE  TRUE </span>
+<span class="co">#&gt;       t1     t2     t3     k      t x1    x2    x3   </span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1.80  0.019<span style="text-decoration: underline;">0</span> 1.68       2 0.019<span style="text-decoration: underline;">0</span> TRUE  TRUE  TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 0.690 0.433  0.309      3 0.309  TRUE  TRUE  TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 0.955 0.834  1.40       2 0.834  FALSE TRUE  TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1.00  0.091<span style="text-decoration: underline;">7</span> 0.021<span style="text-decoration: underline;">6</span>     3 0.021<span style="text-decoration: underline;">6</span> FALSE FALSE TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 3.40  0.840  0.038<span style="text-decoration: underline;">1</span>     3 0.038<span style="text-decoration: underline;">1</span> FALSE FALSE TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.448 0.917  0.340      3 0.340  TRUE  TRUE  TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 0.229 1.22   0.251      1 0.229  TRUE  FALSE TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.348 0.453  0.133      3 0.133  FALSE FALSE TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 3.22  1.01   0.469      3 0.469  FALSE FALSE TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 0.408 0.049<span style="text-decoration: underline;">7</span> 0.633      2 0.049<span style="text-decoration: underline;">7</span> FALSE TRUE  FALSE</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 290 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -271,16 +271,32 @@ a function or procedure <code>p : integer -&gt; [0,1]</code>, defaults to <code>
 <p>The following log-likelihood constructor, <code>md_loglike_exp_series_C1_C2_c3</code>, is implemented using minimally sufficient statistics, which significantly improves the computational efficiency of computing the log-likelihood.</p>
 <p>We compute the log-likelihood function as a function of the masked data <code>md</code> with:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/md_loglike_exp_series_C1_C2_C3.html">md_loglike_exp_series_C1_C2_C3</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span>
-<span class="co">#&gt; function (theta) </span>
-<span class="co">#&gt; {</span>
-<span class="co">#&gt;     f &lt;- sum.t * sum(theta)</span>
-<span class="co">#&gt;     for (i in 1:n) f &lt;- f + md$n[i] * log(sum(theta[md$C[i, ]]))</span>
-<span class="co">#&gt;     f</span>
-<span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x555ede21d0d8&gt;</span>
-<span class="co">#&gt; &lt;environment: 0x555ede21c4d0&gt;</span>
+<code class="sourceCode R"><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/md_loglike_exp_series_C1_C2_C3.html">md_loglike_exp_series_C1_C2_C3</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span></code></pre></div>
+<p>The log-likelihood function contains the maximum amount of information about parameter <span class="math inline">\(\boldsymbol{\theta}\)</span> given the sample of masked data <code>md</code> satisfying conditions <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\)</span>, and <span class="math inline">\(C_3\)</span>.</p>
+<p>Suppose we do not know that <span class="math inline">\(\boldsymbol{\theta }= (3,4,5)'\)</span>. With the log-likelihood, we may estimate <span class="math inline">\(\theta\)</span> with <span class="math inline">\(\hat\theta\)</span> by solving <span class="math display">\[
+\hat{\boldsymbol{\theta}} = \operatorname{argmax}_{\boldsymbol{\theta }\in \Omega} \ell(\theta),
+\]</span> i.e., finding the point that <em>maximizes</em> the log-likelihood on the observed sample <code>md</code>. This is known as <em>maximum likelihood estimation</em> (MLE). We typically solve for the MLE by solving <span class="math display">\[
+\nabla \ell|_{\boldsymbol{\theta}=\hat{\boldsymbol{\theta}}} = \boldsymbol{0}.
+\]</span> We use the iterative method known as the gradient ascent to solve this, <span class="math display">\[
+\boldsymbol{\theta}^{(n+1)} = \boldsymbol{\theta}^n + \alpha_n \nabla \ell(\boldsymbol{\theta}^n),
+\]</span> where <span class="math inline">\(\alpha_n\)</span> is chosen to approximately maximize <span class="math inline">\(\ell(\theta^{(n+1))}\)</span> by using backtracking line search.</p>
+<p>We use the function <code>mle_gradient_ascent</code> provided by the R package <code>algebraic.mle</code> with the appropriate arguments. We find <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> by running the following R code:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 300 × 8</span></span>
+<span class="co">#&gt;       t1     t2     t3     k      t x1    x2    x3   </span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1.80  0.019<span style="text-decoration: underline;">0</span> 1.68       2 0.019<span style="text-decoration: underline;">0</span> TRUE  TRUE  TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 0.690 0.433  0.309      3 0.309  TRUE  TRUE  TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 0.955 0.834  1.40       2 0.834  FALSE TRUE  TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1.00  0.091<span style="text-decoration: underline;">7</span> 0.021<span style="text-decoration: underline;">6</span>     3 0.021<span style="text-decoration: underline;">6</span> FALSE FALSE TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 3.40  0.840  0.038<span style="text-decoration: underline;">1</span>     3 0.038<span style="text-decoration: underline;">1</span> FALSE FALSE TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.448 0.917  0.340      3 0.340  TRUE  TRUE  TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 0.229 1.22   0.251      1 0.229  TRUE  FALSE TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.348 0.453  0.133      3 0.133  FALSE FALSE TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 3.22  1.01   0.469      3 0.469  FALSE FALSE TRUE </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 0.408 0.049<span style="text-decoration: underline;">7</span> 0.633      2 0.049<span style="text-decoration: underline;">7</span> FALSE TRUE  FALSE</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 290 more rows</span></span>
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit_exit.html" class="external-link">knit_exit</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
