@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">series.system.estimation.masked.data</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/exponential.html">Series system with exponentially distributed component lifetimes</a>
+    <a class="dropdown-item" href="../articles/general_series.html">General series system with component lifetimes that are in different parametric families</a>
     <a class="dropdown-item" href="../articles/weibull.html">Series system with Weibull distributed component lifetimes</a>
   </div>
 </li>
@@ -60,7 +61,7 @@
 
 
 <script src="exponential_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Series system with exponentially distributed component lifetimes</h1>
             
       
@@ -80,35 +81,37 @@
 <h2 id="masked-data">Masked data<a class="anchor" aria-label="anchor" href="#masked-data"></a>
 </h2>
 <p>Masked data is given by an i.i.d. sample of system lifetime data and <em>plausible</em> candidate sets that contain the failed node.</p>
-<p>The R package <code>series.system.estimation.masked.data</code> contains several simulated masked data sets. For example, a series system with <span class="math inline">\(3\)</span> exponentially distributed component lifetimes is stored in <code>exp_series_data_1</code>:</p>
+<p>The R package <code>series.system.estimation.masked.data</code> contains several simulated masked data sets. For example, a series system with <span class="math inline">\(3\)</span> exponentially distributed component lifetimes is stored in <code>exp_series_md_1</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">exp_series_md_1</span><span class="op">)</span>
-<span class="co">#&gt; Latent variables:  k t1 t2 t3 </span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,000 × 8</span></span>
-<span class="co">#&gt;          t     k      t1      t2     t3 x1    x2    x3   </span>
-<span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 0.144       2 0.281   0.144   0.266  TRUE  TRUE  FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 0.010<span style="text-decoration: underline;">5</span>      1 0.010<span style="text-decoration: underline;">5</span>  0.014<span style="text-decoration: underline;">1</span>  0.063<span style="text-decoration: underline;">3</span> TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 0.036<span style="text-decoration: underline;">3</span>      2 0.105   0.036<span style="text-decoration: underline;">3</span>  0.545  TRUE  TRUE  FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 0.009<span style="text-decoration: underline;">72</span>     1 0.009<span style="text-decoration: underline;">72</span> 0.251   0.096<span style="text-decoration: underline;">0</span> TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 0.037<span style="text-decoration: underline;">7</span>      3 0.093<span style="text-decoration: underline;">7</span>  0.094<span style="text-decoration: underline;">3</span>  0.037<span style="text-decoration: underline;">7</span> TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.095<span style="text-decoration: underline;">8</span>      3 0.283   0.391   0.095<span style="text-decoration: underline;">8</span> FALSE TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 0.169       3 0.197   1.01    0.169  FALSE TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.270       3 0.322   0.371   0.270  FALSE TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 0.299       3 0.390   0.401   0.299  TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 0.007<span style="text-decoration: underline;">94</span>     2 0.524   0.007<span style="text-decoration: underline;">94</span> 0.120  FALSE TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 990 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">exp_series_md_1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Latent variables:  k t1 t2 t3 </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,000 × 8</span></span></span>
+<span><span class="co">#&gt;          t     k      t1      t2     t3 x1    x2    x3   </span></span>
+<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 0.144       2 0.281   0.144   0.266  TRUE  TRUE  FALSE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 0.010<span style="text-decoration: underline;">5</span>      1 0.010<span style="text-decoration: underline;">5</span>  0.014<span style="text-decoration: underline;">1</span>  0.063<span style="text-decoration: underline;">3</span> TRUE  FALSE TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 0.036<span style="text-decoration: underline;">3</span>      2 0.105   0.036<span style="text-decoration: underline;">3</span>  0.545  TRUE  TRUE  FALSE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 0.009<span style="text-decoration: underline;">72</span>     1 0.009<span style="text-decoration: underline;">72</span> 0.251   0.096<span style="text-decoration: underline;">0</span> TRUE  FALSE TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 0.037<span style="text-decoration: underline;">7</span>      3 0.093<span style="text-decoration: underline;">7</span>  0.094<span style="text-decoration: underline;">3</span>  0.037<span style="text-decoration: underline;">7</span> TRUE  FALSE TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.095<span style="text-decoration: underline;">8</span>      3 0.283   0.391   0.095<span style="text-decoration: underline;">8</span> FALSE TRUE  TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 0.169       3 0.197   1.01    0.169  FALSE TRUE  TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.270       3 0.322   0.371   0.270  FALSE TRUE  TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 0.299       3 0.390   0.401   0.299  TRUE  FALSE TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 0.007<span style="text-decoration: underline;">94</span>     2 0.524   0.007<span style="text-decoration: underline;">94</span> 0.120  FALSE TRUE  TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 990 more rows</span></span></span></code></pre></div>
 <p>You can get help on any object in <code>series.system.estimation.masked.data</code> using the built-in help. For instance, to get information on the data set <code>exp_series_md_1</code>, type <code><a href="../reference/exp_series_md_1.html">?exp_series_md_1</a></code> in your R console.</p>
 </div>
 <div class="section level2">
 <h2 id="statistical-model-for-masked-data">Statistical model for masked data<a class="anchor" aria-label="anchor" href="#statistical-model-for-masked-data"></a>
 </h2>
-<p>The principle object of study is the series system consisting of <span class="math inline">\(m\)</span> components. We are interested in estimating the component lifetimes from masked data in the form of candidate sets, where the candidate sets satisfy the following set of conditions:</p>
+<p>The principle object of study is the series system consisting of <span class="math inline">\(m\)</span> components. We are interested in estimating the component lifetimes from masked data. The masking comes in two independent forms:</p>
 <ul>
-<li><p>Condition <span class="math inline">\(C_1\)</span>: The index of the failed component is in the candidate set, i.e., <span class="math inline">\(\Pr\{K_i \in C_i\} = 1\)</span>.</p></li>
-<li><p>Condition <span class="math inline">\(C_2\)</span>: The probability of <span class="math inline">\(C_i\)</span> given <span class="math inline">\(K_i\)</span> and <span class="math inline">\(T_i\)</span> is equally probable when the failed component varies over the components in the candidate set, i.e., <span class="math inline">\(\Pr\{C_i=c_i|K_i=j,T_i=t_i\} = \Pr\{C_i=c_i|K_i=j',T_i=t_i\}\)</span> for any <span class="math inline">\(j,j' \in c_i\)</span>.</p></li>
+<li><p>Censored system failure times, e.g., right-censoring.</p></li>
+<li><p>Masked component cause of failure, which comes in the form of candidate sets, where the candidate sets satisfy the following set of conditions:</p></li>
+<li><p><span class="math inline">\(C_1\)</span>: The index of the failed component is in the candidate set, i.e., <span class="math inline">\(\Pr\{K_i \in \mathcal{C}_i\} = 1\)</span>.</p></li>
+<li><p><span class="math inline">\(C_2\)</span>: The probability of <span class="math inline">\(C_i\)</span> given <span class="math inline">\(K_i\)</span> and <span class="math inline">\(T_i\)</span> is equally probable when the failed component varies over the components in the candidate set, i.e., <span class="math inline">\(\Pr\{\mathcal{C}_i=c_i|K_i=j,T_i=t_i\} = \Pr\{C_i=c_i|K_i=j',T_i=t_i\}\)</span> for any <span class="math inline">\(j,j' \in c_i\)</span>.</p></li>
 <li>
-<p>Condition <span class="math inline">\(C_3\)</span>: The masking probabilities are independent of <span class="math inline">\(\boldsymbol{\theta}\)</span>, i.e., <span class="math inline">\(\Pr\{C_i=c_i|K_i=j,T_i=t_i\}\)</span> is not a function of <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p>
+<p><span class="math inline">\(C_3\)</span>: The masking probabilities are independent of <span class="math inline">\(\boldsymbol{\theta}\)</span>, i.e., <span class="math inline">\(\Pr\{\mathcal{C}_i=c_i|K_i=j,T_i=t_i\}\)</span> is not a function of <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p>
 <p>That means, whatever the generative mechanism underlying <span class="math inline">\(\mathcal{C}_1,\ldots,\mathcal{C}_n\)</span>, it has no explicit knowledge of <span class="math inline">\(\boldsymbol{\theta}\)</span>, but the <span class="math inline">\(i\)</span> candidate set <span class="math inline">\(\mathcal{C}_i\)</span> may depend on the realizations of <span class="math inline">\(T_{i 1},\ldots,T_{i n}\)</span> and other factors not explicitly in the statistical model we have described.</p>
 </li>
 </ul>
@@ -119,7 +122,7 @@
 <p>In what follows, we describe our Bernoulli candidate set model that generates candidate sets that satisfy these conditions.</p>
 <div class="r-help-page">
 <div class="container">
-<table width="100%" class="table"><tr>
+<table style="width: 100%;" class="table"><tr>
 <td>
 md_bernoulli_candidate_C1_C2_C3
 </td>
@@ -139,12 +142,12 @@ Bernoulli candidate model that is a function of component cause of failure <code
 <h4>
 Usage
 </h4>
-<pre class="r"><code class="language-R"><span class="fu"><a href="../reference/md_bernoulli_candidate_C1_C2_C3.html">md_bernoulli_candidate_C1_C2_C3</a></span><span class="op">(</span><span class="va">md</span>, <span class="va">m</span>, p <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></code></pre>
+<pre class="r"><code class="language-R"><span><span class="fu"><a href="../reference/md_bernoulli_candidate_C1_C2_C3.html">md_bernoulli_candidate_C1_C2_C3</a></span><span class="op">(</span><span class="va">md</span>, <span class="va">m</span>, p <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 <h4>
 Arguments
 </h4>
 <table class="table">
-<tr valign="top">
+<tr style="vertical-align: top;">
 <td>
 <code>md</code>
 </td>
@@ -154,7 +157,7 @@ masked data, has a column <code>k</code> for the failed component index.
 </p>
 </td>
 </tr>
-<tr valign="top">
+<tr style="vertical-align: top;">
 <td>
 <code>m</code>
 </td>
@@ -164,7 +167,7 @@ integer, number of components in the candidate set.
 </p>
 </td>
 </tr>
-<tr valign="top">
+<tr style="vertical-align: top;">
 <td>
 <code>p</code>
 </td>
@@ -177,87 +180,96 @@ a function or procedure <code>p : integer -&gt; [0,1]</code>, defaults to <code>
 </table>
 </div>
 </div>
-<pre><code><span class="co">#&gt; function (md, m, p = function(n) runif(n)) </span>
-<span class="co">#&gt; {</span>
-<span class="co">#&gt;     stopifnot(!is.null(md$k))</span>
-<span class="co">#&gt;     n &lt;- nrow(md)</span>
-<span class="co">#&gt;     stopifnot(n &gt; 0)</span>
-<span class="co">#&gt;     x &lt;- matrix(NA, nrow = n, ncol = m)</span>
-<span class="co">#&gt;     u &lt;- matrix(runif(m * n), nrow = n)</span>
-<span class="co">#&gt;     gam &lt;- p(n)</span>
-<span class="co">#&gt;     for (i in 1:n) {</span>
-<span class="co">#&gt;         for (j in 1:m) {</span>
-<span class="co">#&gt;             x[i, j] &lt;- ifelse(md$k[i] == j, T, u[i, j] &lt; gam[i])</span>
-<span class="co">#&gt;         }</span>
-<span class="co">#&gt;     }</span>
-<span class="co">#&gt;     x &lt;- tibble::as_tibble(x)</span>
-<span class="co">#&gt;     colnames(x) &lt;- paste0("x", 1:m)</span>
-<span class="co">#&gt;     md %&gt;% dplyr::bind_cols(x)</span>
-<span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x55ff49d89d70&gt;</span>
-<span class="co">#&gt; &lt;environment: namespace:series.system.estimation.masked.data&gt;</span></code></pre>
-</div>
-<div class="section level3">
-<h3 id="estimating-the-variance-covariance-using-the-bootstrap-method">Estimating the variance-covariance using the Bootstrap method<a class="anchor" aria-label="anchor" href="#estimating-the-variance-covariance-using-the-bootstrap-method"></a>
-</h3>
-<p>Alternatively, we could estimate <span class="math inline">\(\boldsymbol{\theta}\)</span> with <span class="math inline">\(B\)</span> simulated draws from the MLEs that satisfy <span class="math display">\[
-    \operatorname{argmax}_{\boldsymbol{\theta }\in \boldsymbol{\Omega}} \ell(\boldsymbol{\theta}|\mathcal{D_i})
-\]</span> where <span class="math inline">\(\mathcal{\boldsymbol{D_i}}\)</span> is a random sample from the empirical distribution <span class="math inline">\(\{(S_i,\delta_i,C_i)\}_1^n\)</span>. We call this the <em>Bootstrap</em>.</p>
-<p>Assuming the above solution to the MLE equation is <em>unique</em>, this gives us a single point <span class="math inline">\(\hat{\boldsymbol{\theta}}_{(i)}\)</span> when conditioned on the simulated masked data <span class="math inline">\(\boldsymbol{D_i}\)</span>.</p>
+<p>Here is the source code for <code>md_bernoulli_candidate_C1_C2_C3</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">md_bernoulli_candidate_C1_C2_C3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">md</span>,<span class="va">m</span>,<span class="va">p</span><span class="op">=</span><span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">md</span><span class="op">$</span><span class="va">k</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">NA</span>,nrow<span class="op">=</span><span class="va">n</span>,ncol<span class="op">=</span><span class="va">m</span><span class="op">)</span></span>
+<span>    <span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">m</span><span class="op">*</span><span class="va">n</span><span class="op">)</span>,nrow<span class="op">=</span><span class="va">n</span><span class="op">)</span></span>
+<span>    <span class="va">gam</span> <span class="op">&lt;-</span> <span class="fu">p</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span></span>
+<span>    <span class="op">{</span></span>
+<span>        <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">m</span><span class="op">)</span></span>
+<span>        <span class="op">{</span></span>
+<span>            <span class="va">x</span><span class="op">[</span><span class="va">i</span>,<span class="va">j</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">md</span><span class="op">$</span><span class="va">k</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">==</span><span class="va">j</span>,</span>
+<span>                             <span class="cn">T</span>,</span>
+<span>                             <span class="va">u</span><span class="op">[</span><span class="va">i</span>,<span class="va">j</span><span class="op">]</span> <span class="op">&lt;</span> <span class="va">gam</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>        <span class="op">}</span></span>
+<span>    <span class="op">}</span></span>
+<span></span>
+<span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"x"</span>,<span class="fl">1</span><span class="op">:</span><span class="va">m</span><span class="op">)</span></span>
+<span>    <span class="va">md</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="exponential-series-system">Exponential series system<a class="anchor" aria-label="anchor" href="#exponential-series-system"></a>
 </h2>
 <p>The most straightforward series system to estimate is the series system with exponentially distributed component lifetimes.</p>
-<p>Suppose an exponential series system with <span class="math inline">\(m\)</span> components is parameterized by <span class="math inline">\(\boldsymbol{\theta }= (1,1.25,1.5)'\)</span>. Then, the component assigned to index <span class="math inline">\(j\)</span> has an exponentially distributed lifetime with a failure rate <span class="math inline">\(\theta_j\)</span>, e.g., <span class="math inline">\(\theta_2 = 1.25\)</span> is the failure rate of the component indexed by <span class="math inline">\(2\)</span>.</p>
-<p>Let’s simulate a series system (without candidate sets):</p>
+<p>Suppose an exponential series system with <span class="math inline">\(m\)</span> components is parameterized by the following R code:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">300</span>
-<span class="va">theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1.25</span>,<span class="fl">1.5</span><span class="op">)</span>
-<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">theta</span><span class="op">)</span>
-
-<span class="va">md</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>t1<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="va">n</span>,<span class="va">theta</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,
-             t2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="va">n</span>,<span class="va">theta</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,
-             t3<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="va">n</span>,<span class="va">theta</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/md_series_lifetime.html">md_series_lifetime</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 300 × 5</span></span>
-<span class="co">#&gt;        t1     t2     t3     k      t</span>
-<span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1.70   1.43   0.416      3 0.416 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 0.059<span style="text-decoration: underline;">4</span> 4.84   0.116      1 0.059<span style="text-decoration: underline;">4</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1.37   1.73   0.023<span style="text-decoration: underline;">0</span>     3 0.023<span style="text-decoration: underline;">0</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 0.260  0.605  0.151      3 0.151 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 0.480  0.070<span style="text-decoration: underline;">8</span> 0.164      2 0.070<span style="text-decoration: underline;">8</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.205  0.251  0.854      1 0.205 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 1.83   0.738  0.808      2 0.738 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.091<span style="text-decoration: underline;">3</span> 0.317  0.191      1 0.091<span style="text-decoration: underline;">3</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1.56   1.89   0.664      3 0.664 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 0.814  2.66   1.07       1 0.814 </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 290 more rows</span></span></code></pre></div>
-<p>In the above, we used the function <code>md_series_lifetime</code>. To get more help on it, type <code><a href="../reference/md_series_lifetime.html">?md_series_lifetime</a></code>.</p>
+<code class="sourceCode R"><span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1.25</span>,<span class="fl">1.75</span><span class="op">)</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">theta</span><span class="op">)</span></span></code></pre></div>
+<p><span class="math inline">\(\boldsymbol{\theta }= (1, 1.25, 1.75)'\)</span>. Then, the component assigned to index <span class="math inline">\(j\)</span> has an exponentially distributed lifetime with a failure rate <span class="math inline">\(\theta_j\)</span>, e.g., <span class="math inline">\(\theta_2 = 1.25\)</span> is the failure rate of the component indexed by <span class="math inline">\(2\)</span>.</p>
+<p>Let’s simulate generating the lifetimes of <span class="math inline">\(n=300\)</span> of these series systems:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">500000</span></span>
+<span><span class="va">md</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>t1<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="va">n</span>,<span class="va">theta</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>             t2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="va">n</span>,<span class="va">theta</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>             t3<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="va">n</span>,<span class="va">theta</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>    <span class="fu"><a href="../reference/md_series_lifetime.html">md_series_lifetime</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 500,000 × 5</span></span></span>
+<span><span class="co">#&gt;        t1    t2    t3     k      t</span></span>
+<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 0.088<span style="text-decoration: underline;">0</span> 0.242 0.368     1 0.088<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 0.875  0.593 2.35      2 0.593 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1.21   0.304 0.426     2 0.304 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 0.346  1.39  0.310     3 0.310 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1.37   0.939 0.179     3 0.179 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.047<span style="text-decoration: underline;">2</span> 0.684 0.202     1 0.047<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2.68   0.319 0.461     2 0.319 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.304  0.355 0.502     1 0.304 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 0.732  0.345 1.51      2 0.345 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 0.355  0.674 2.21      1 0.355 </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 499,990 more rows</span></span></span></code></pre></div>
+<p>In the above, we used the function <code>md_series_lifetime</code>, to decorate the masked data <code>md</code> consisting of <span class="math inline">\(m=3\)</span> component lifetimes to masked data that also includes the series system failure time (column <span class="math inline">\(t\)</span>) and the comoponent cause of failure (column <span class="math inline">\(k\)</span>). To get more help on it, type <code><a href="../reference/md_series_lifetime.html">?md_series_lifetime</a></code>.</p>
 <div class="section level3">
-<h3 id="candidate-sets">Candidate sets<a class="anchor" aria-label="anchor" href="#candidate-sets"></a>
+<h3 id="right-censoring">Right-censoring<a class="anchor" aria-label="anchor" href="#right-censoring"></a>
+</h3>
+<p>We simulate right-censoring, with a right-censoring time chosen by the probability <span class="math inline">\(\Pr\{T_i &gt; \tau\} = 0.75\)</span>, with:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fl">0.25</span></span>
+<span><span class="va">tau</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">theta</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">q</span><span class="op">)</span>,<span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">md</span> <span class="op">&lt;-</span> <span class="va">md</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/md_series_lifetime_right_censoring.html">md_series_lifetime_right_censoring</a></span><span class="op">(</span><span class="va">tau</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="masked-component-cause-of-failure-candidate-sets">Masked component cause of failure (candidate sets)<a class="anchor" aria-label="anchor" href="#masked-component-cause-of-failure-candidate-sets"></a>
 </h3>
 <p>We simulate candidate sets using the Bernoulli candidate model with an appropriate set of parameters to satisfy conditions <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\)</span>, and <span class="math inline">\(C_3\)</span>:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">md</span> <span class="op">&lt;-</span> <span class="va">md</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/md_bernoulli_candidate_C1_C2_C3.html">md_bernoulli_candidate_C1_C2_C3</a></span><span class="op">(</span><span class="va">m</span>, <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">.333</span>,<span class="va">n</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 300 × 8</span></span>
-<span class="co">#&gt;        t1     t2     t3     k      t x1    x2    x3   </span>
-<span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1.70   1.43   0.416      3 0.416  TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 0.059<span style="text-decoration: underline;">4</span> 4.84   0.116      1 0.059<span style="text-decoration: underline;">4</span> TRUE  FALSE FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1.37   1.73   0.023<span style="text-decoration: underline;">0</span>     3 0.023<span style="text-decoration: underline;">0</span> FALSE TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 0.260  0.605  0.151      3 0.151  TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 0.480  0.070<span style="text-decoration: underline;">8</span> 0.164      2 0.070<span style="text-decoration: underline;">8</span> FALSE TRUE  FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.205  0.251  0.854      1 0.205  TRUE  FALSE FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 1.83   0.738  0.808      2 0.738  FALSE TRUE  FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.091<span style="text-decoration: underline;">3</span> 0.317  0.191      1 0.091<span style="text-decoration: underline;">3</span> TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1.56   1.89   0.664      3 0.664  TRUE  TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 0.814  2.66   1.07       1 0.814  TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 290 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">md</span> <span class="op">&lt;-</span> <span class="va">md</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/md_bernoulli_candidate_C1_C2_C3.html">md_bernoulli_candidate_C1_C2_C3</a></span><span class="op">(</span><span class="va">m</span>, <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">.3</span>,<span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 500,000 × 11</span></span></span>
+<span><span class="co">#&gt;        t1    t2    t3     k      t   tau      s delta x1    x2    x3   </span></span>
+<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 0.088<span style="text-decoration: underline;">0</span> 0.242 0.368     1 0.088<span style="text-decoration: underline;">0</span> 0.347 0.088<span style="text-decoration: underline;">0</span> FALSE TRUE  FALSE FALSE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 0.875  0.593 2.35      2 0.593  0.347 0.347  TRUE  FALSE TRUE  FALSE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1.21   0.304 0.426     2 0.304  0.347 0.304  FALSE TRUE  TRUE  FALSE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 0.346  1.39  0.310     3 0.310  0.347 0.310  FALSE FALSE TRUE  TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1.37   0.939 0.179     3 0.179  0.347 0.179  FALSE FALSE FALSE TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.047<span style="text-decoration: underline;">2</span> 0.684 0.202     1 0.047<span style="text-decoration: underline;">2</span> 0.347 0.047<span style="text-decoration: underline;">2</span> FALSE TRUE  TRUE  FALSE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2.68   0.319 0.461     2 0.319  0.347 0.319  FALSE FALSE TRUE  FALSE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.304  0.355 0.502     1 0.304  0.347 0.304  FALSE TRUE  FALSE TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 0.732  0.345 1.51      2 0.345  0.347 0.345  FALSE FALSE TRUE  TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 0.355  0.674 2.21      1 0.355  0.347 0.347  TRUE  TRUE  FALSE TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 499,990 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="log-likelihood-of-theta-given-masked-data">Log-likelihood of <span class="math inline">\(\theta\)</span> given masked data<a class="anchor" aria-label="anchor" href="#log-likelihood-of-theta-given-masked-data"></a>
@@ -269,11 +281,51 @@ a function or procedure <code>p : integer -&gt; [0,1]</code>, defaults to <code>
     \sum_{i=1}^{n} \log\left(\sum_{j \in c_i} \theta_j\right).
 \]</span></p>
 <p>The following log-likelihood constructor, <code>md_loglike_exp_series_C1_C2_c3</code>, is implemented using minimally sufficient statistics, which significantly improves the computational efficiency of computing the log-likelihood.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">md_loglike_exp_series_C1_C2_C3</span></span></code></pre></div>
+<div class="r-help-page">
+<div class="container">
+<table style="width: 100%;" class="table"><tr>
+<td>
+md_loglike_exp_series_C1_C2_C3
+</td>
+<td style="text-align: right;">
+R Documentation
+</td>
+</tr></table>
+<h3>
+Generates a log-likelihood for an exponential series system with respect to parameter <code>theta</code> for masked data with candidate sets that approximately satisfy conditions C1, C2, and C3.
+</h3>
+<h4>
+Description
+</h4>
+<p>
+Generates a log-likelihood for an exponential series system with respect to parameter <code>theta</code> for masked data with candidate sets that approximately satisfy conditions C1, C2, and C3.
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code class="language-R"><span><span class="fu"><a href="../reference/md_loglike_exp_series_C1_C2_C3.html">md_loglike_exp_series_C1_C2_C3</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span></span></code></pre>
+<h4>
+Arguments
+</h4>
+<table class="table"><tr style="vertical-align: top;">
+<td>
+<code>md</code>
+</td>
+<td>
+<p>
+masked data
+</p>
+</td>
+</tr></table>
+</div>
+</div>
 <p>We compute the log-likelihood function as a function of the masked data <code>md</code> with:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/md_loglike_exp_series_C1_C2_C3.html">md_loglike_exp_series_C1_C2_C3</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/md_loglike_exp_series_C1_C2_C3.html">md_loglike_exp_series_C1_C2_C3</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span></span></code></pre></div>
 <p>The log-likelihood function contains the maximum amount of information about parameter <span class="math inline">\(\boldsymbol{\theta}\)</span> given the sample of masked data <code>md</code> satisfying conditions <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\)</span>, and <span class="math inline">\(C_3\)</span>.</p>
-<p>Suppose we do not know that <span class="math inline">\(\boldsymbol{\theta }= (3,4,5)'\)</span>. With the log-likelihood, we may estimate <span class="math inline">\(\theta\)</span> with <span class="math inline">\(\hat\theta\)</span> by solving <span class="math display">\[
+<p>Suppose we do not know that <span class="math inline">\(\boldsymbol{\theta }= (1, 1.25, 1.75)'\)</span>. With the log-likelihood, we may estimate <span class="math inline">\(\theta\)</span> with <span class="math inline">\(\hat\theta\)</span> by solving <span class="math display">\[
 \hat{\boldsymbol{\theta}} = \operatorname{argmax}_{\boldsymbol{\theta }\in \Omega} \ell(\theta),
 \]</span> i.e., finding the point that <em>maximizes</em> the log-likelihood on the observed sample <code>md</code>. This is known as <em>maximum likelihood estimation</em> (MLE). We typically solve for the MLE by solving <span class="math display">\[
 \nabla \ell|_{\boldsymbol{\theta}=\hat{\boldsymbol{\theta}}} = \boldsymbol{0}.
@@ -281,98 +333,88 @@ a function or procedure <code>p : integer -&gt; [0,1]</code>, defaults to <code>
 \boldsymbol{\theta}^{(n+1)} = \boldsymbol{\theta}^n + \alpha_n \nabla \ell(\boldsymbol{\theta}^n),
 \]</span> where <span class="math inline">\(\alpha_n\)</span> is chosen to approximately maximize <span class="math inline">\(\ell(\theta^{(n+1))}\)</span> by using backtracking line search.</p>
 <p>We use the function <code>mle_gradient_ascent</code> provided by the R package <code>algebraic.mle</code> with the appropriate arguments. We find <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> by running the following R code:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">scr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/md_score_exp_series_C1_C2_C3.html">md_score_exp_series_C1_C2_C3</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span>
-<span class="va">mle</span> <span class="op">&lt;-</span> <span class="fu">mle_gradient_ascent</span><span class="op">(</span>l<span class="op">=</span><span class="va">l</span>,theta0<span class="op">=</span><span class="va">theta</span>,score<span class="op">=</span><span class="va">scr</span><span class="op">)</span>
-<span class="va">theta.hat</span> <span class="op">&lt;-</span> <span class="fu">point</span><span class="op">(</span><span class="va">mle</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mle</span><span class="op">)</span>
-<span class="co">#&gt; Maximum likelihood estimator, of type mle_numerical ,</span>
-<span class="co">#&gt; is normally distributed with mean</span>
-<span class="co">#&gt;       [,1]</span>
-<span class="co">#&gt; [1,] 0.908</span>
-<span class="co">#&gt; [2,] 1.229</span>
-<span class="co">#&gt; [3,] 1.385</span>
-<span class="co">#&gt; and variance-covariance</span>
-<span class="co">#&gt;          [,1]     [,2]     [,3]</span>
-<span class="co">#&gt; [1,]  0.01720 -0.00314 -0.00341</span>
-<span class="co">#&gt; [2,] -0.00314  0.02106 -0.00349</span>
-<span class="co">#&gt; [3,] -0.00341 -0.00349  0.02317</span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; The asymptotic mean squared error 0.0614 </span>
-<span class="co">#&gt; The asymptotic 95% confidence interval is</span>
-<span class="co">#&gt;   2.5 % 97.5 %</span>
-<span class="co">#&gt; 1 0.692   1.12</span>
-<span class="co">#&gt; 2 0.990   1.47</span>
-<span class="co">#&gt; 3 1.135   1.64</span>
-<span class="co">#&gt; The log-likelihood is -126 </span>
-<span class="co">#&gt; The AIC is 259</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">scr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/md_score_exp_series_C1_C2_C3.html">md_score_exp_series_C1_C2_C3</a></span><span class="op">(</span><span class="va">md</span><span class="op">)</span></span>
+<span><span class="va">mle</span> <span class="op">&lt;-</span> <span class="fu">mle_gradient_ascent</span><span class="op">(</span>l<span class="op">=</span><span class="va">l</span>,theta0<span class="op">=</span><span class="va">theta</span>,score<span class="op">=</span><span class="va">scr</span><span class="op">)</span></span>
+<span><span class="va">theta.hat</span> <span class="op">&lt;-</span> <span class="fu">point</span><span class="op">(</span><span class="va">mle</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mle</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Maximum likelihood estimator, of type mle_numerical ,</span></span>
+<span><span class="co">#&gt; is normally distributed with mean</span></span>
+<span><span class="co">#&gt;       [,1]</span></span>
+<span><span class="co">#&gt; [1,] 0.997</span></span>
+<span><span class="co">#&gt; [2,] 1.257</span></span>
+<span><span class="co">#&gt; [3,] 1.757</span></span>
+<span><span class="co">#&gt; and variance-covariance</span></span>
+<span><span class="co">#&gt;           [,1]      [,2]      [,3]</span></span>
+<span><span class="co">#&gt; [1,]  1.65e-05 -2.83e-06 -3.07e-06</span></span>
+<span><span class="co">#&gt; [2,] -2.83e-06  1.97e-05 -3.44e-06</span></span>
+<span><span class="co">#&gt; [3,] -3.07e-06 -3.44e-06  2.53e-05</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; The asymptotic mean squared error 6.15e-05 </span></span>
+<span><span class="co">#&gt; The asymptotic 95% confidence interval is</span></span>
+<span><span class="co">#&gt;   2.5 % 97.5 %</span></span>
+<span><span class="co">#&gt; 1  0.99   1.00</span></span>
+<span><span class="co">#&gt; 2  1.25   1.26</span></span>
+<span><span class="co">#&gt; 3  1.75   1.77</span></span>
+<span><span class="co">#&gt; The log-likelihood is -113849 </span></span>
+<span><span class="co">#&gt; The AIC is 227703</span></span></code></pre></div>
 <p>The function <code>md_gradient_ascent</code> returns an <code>mle</code> object, which has various methods implemented for it, e.g., <code>confint</code> (computes the estimators confidence interval). In the above, we see use of the <code>summary</code> method, which takes an <code>mle</code> object and prints out a summary of its properties. We let <code>theta.hat</code> be given by the <code>point</code> method, which obtains the point <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span>.</p>
-<p>We see that $ = (</p>
-<table class="table"><tbody>
-<tr class="odd">
-<td align="right">0.908</td>
-</tr>
-<tr class="even">
-<td align="right">1.229</td>
-</tr>
-<tr class="odd">
-<td align="right">1.385</td>
-</tr>
-</tbody></table>
-<p>If we let the third argument in the log-likelihood function be fixed at <span class="math inline">\(\hat\theta_3 = 1.385)\)</span>, then we may profile the log-likelihood function over the first two parameters:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">prof</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">theta1</span><span class="op">)</span> <span class="op">{</span> <span class="fu">l</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">theta1</span>,<span class="va">theta.hat</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,<span class="va">theta.hat</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">}</span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">theta.hat</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">-</span><span class="fl">2</span>,<span class="va">theta.hat</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="fl">2</span>,<span class="fl">.05</span><span class="op">)</span><span class="op">)</span>
-<span class="va">data</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>
-    <span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">prof</span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-
-<span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span>
-<span class="va">data</span> <span class="op">%&gt;%</span> <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>,y<span class="op">=</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">theta.hat</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,<span class="fu">prof</span><span class="op">(</span><span class="va">theta.hat</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Removed 22 row(s) containing missing values (geom_path).</span></code></pre></div>
-<p><img src="exponential_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p>We see that <span class="math display">\[
+\hat{\boldsymbol{\theta}} = (0.997, 1.257, 1.757)'.
+\]</span> Recall that the true parameter <span class="math inline">\(\boldsymbol{\theta }= 1, 1.25, 1.75\)</span>.</p>
+<p>If we let the third argument in the log-likelihood function be fixed at <span class="math inline">\(\hat\theta_3 = 1.757)\)</span>, then we may profile the log-likelihood function over the first two parameters:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">prof</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">theta1</span><span class="op">)</span> <span class="op">{</span> <span class="fu">l</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">theta1</span>,<span class="va">theta.hat</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,<span class="va">theta.hat</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">}</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">theta.hat</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">-</span><span class="fl">2</span>,<span class="va">theta.hat</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="fl">2</span>,<span class="fl">.05</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">data</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">prof</span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in log(sum(theta[md$C[i, ]])): NaNs produced</span></span>
+<span><span class="va">data</span> <span class="op">%&gt;%</span> <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>,y<span class="op">=</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">theta.hat</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,<span class="fu">prof</span><span class="op">(</span><span class="va">theta.hat</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">labs</span><span class="op">(</span>x<span class="op">=</span><span class="st">"t"</span>,y<span class="op">=</span><span class="st">"likelihood"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Removed 21 row(s) containing missing values (geom_path).</span></span></code></pre></div>
+<p><img src="exponential_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <p>Due to sampling variability, different runs of the experiment will result in different outcomes, i.e., <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> has a sampling distribution. We see that <span class="math inline">\(\hat{\boldsymbol{\theta}} \neq \boldsymbol{\theta}\)</span>, but it is reasonably close. We may measure this sampling variability using the variance-covariance matrix, bias, mean squared error (MSE), and confidence intervals.</p>
 </div>
 <div class="section level3">
@@ -384,23 +426,23 @@ a function or procedure <code>p : integer -&gt; [0,1]</code>, defaults to <code>
     \hat{\boldsymbol{\theta}} \sim \mathcal{N}(\boldsymbol{\theta},J^{-1}(\hat{\boldsymbol{\theta}})).
 \]</span></p>
 <p>Asymptotically, <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> is the UMVUE, i.e., it is unbiased and obtains the minimum sampling variance. An estimate of the variance-covariance may be obtained with:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">V.hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/vcov.html" class="external-link">vcov</a></span><span class="op">(</span><span class="va">mle</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">V.hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/vcov.html" class="external-link">vcov</a></span><span class="op">(</span><span class="va">mle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table"><tbody>
 <tr class="odd">
-<td align="right">0.017</td>
-<td align="right">-0.003</td>
-<td align="right">-0.003</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">-0.003</td>
-<td align="right">0.021</td>
-<td align="right">-0.003</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="right">-0.003</td>
-<td align="right">-0.003</td>
-<td align="right">0.023</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 </tr>
 </tbody></table>
 </div>
@@ -419,9 +461,9 @@ a function or procedure <code>p : integer -&gt; [0,1]</code>, defaults to <code>
 \lim_{n \to \infty} \operatorname{MSE}(\hat{\boldsymbol{\theta}}) =
     \operatorname{trace}\bigl(\operatorname{vcov}(\hat{\boldsymbol{\theta}})\bigr).
 \]</span> Thus, for sufficiently large samples, <span class="math inline">\(\operatorname{MSE}(\hat{\boldsymbol{\theta}})\)</span> is approximately given by the <code>trace</code> of the estimated variance-covariance matrix:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">mse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">V.hat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.0614</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">mse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">V.hat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 6.15e-05</span></span></code></pre></div>
 <p>If we have a sample of <span class="math inline">\(n\)</span> MLEs, <span class="math inline">\(\hat{\boldsymbol{\theta}}^{(1)},\ldots,\hat{\boldsymbol{\theta}}^{(n)}\)</span>, then we may estimate both the bias and the MSE respectively with the statistics <span class="math display">\[
 \hat{\operatorname{b}} = \frac{1}{n} \sum_{i=1} \hat{\boldsymbol{\theta}}^{(i)} - \boldsymbol{\theta}
 \]</span> and <span class="math display">\[
@@ -429,76 +471,153 @@ a function or procedure <code>p : integer -&gt; [0,1]</code>, defaults to <code>
     \sum_{i=1}^n (\hat{\boldsymbol{\theta}}^{(i)} - \boldsymbol{\theta})
                  (\hat{\boldsymbol{\theta}}^{(i)} - \boldsymbol{\theta})'.
 \]</span> We may then compare these statistics, <span class="math inline">\(\hat{\operatorname{b}}\)</span> and <span class="math inline">\(\widehat{\operatorname{MSE}}\)</span>, with the asymptotic bias <span class="math inline">\((\boldsymbol{0})\)</span> and the asymptotic <span class="math inline">\(\operatorname{MSE}\)</span>.</p>
-<p>Let us compute estimates of the bias, variance-covariance, and mean squared error as a function of sample size <span class="math inline">\(n\)</span> using Monte Carlo simulation. Note that this is similiar to the Bootstrap, except we know <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 100 × 8</span></span>
-<span class="co">#&gt;       t1    t2     t3     k      t x1    x2    x3   </span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1.12  3.77  0.396      3 0.396  FALSE TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 0.300 1.05  0.256      3 0.256  FALSE FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2.65  0.879 0.070<span style="text-decoration: underline;">5</span>     3 0.070<span style="text-decoration: underline;">5</span> FALSE FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 4.79  0.219 0.841      2 0.219  FALSE TRUE  FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1.52  0.735 0.999      2 0.735  TRUE  TRUE  FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 0.401 1.62  0.228      3 0.228  TRUE  TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 0.544 0.481 0.920      2 0.481  FALSE TRUE  FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.535 1.43  0.533      3 0.533  FALSE TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 3.33  1.20  0.300      3 0.300  TRUE  TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1.34  1.27  6.54       2 1.27   FALSE TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 90 more rows</span></span>
-<span class="co">#&gt; Maximum likelihood estimator, of type mle_numerical ,</span>
-<span class="co">#&gt; is normally distributed with mean</span>
-<span class="co">#&gt;       [,1]</span>
-<span class="co">#&gt; [1,] 0.479</span>
-<span class="co">#&gt; [2,] 1.478</span>
-<span class="co">#&gt; [3,] 1.396</span>
-<span class="co">#&gt; and variance-covariance</span>
-<span class="co">#&gt;          [,1]     [,2]     [,3]</span>
-<span class="co">#&gt; [1,]  0.02511 -0.00384 -0.00522</span>
-<span class="co">#&gt; [2,] -0.00384  0.06662 -0.01320</span>
-<span class="co">#&gt; [3,] -0.00522 -0.01320  0.06525</span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; The asymptotic mean squared error 0.157 </span>
-<span class="co">#&gt; The asymptotic 95% confidence interval is</span>
-<span class="co">#&gt;   2.5 % 97.5 %</span>
-<span class="co">#&gt; 1 0.219   0.74</span>
-<span class="co">#&gt; 2 1.054   1.90</span>
-<span class="co">#&gt; 3 0.976   1.82</span>
-<span class="co">#&gt; The log-likelihood is -43.8 </span>
-<span class="co">#&gt; The AIC is 93.7 </span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 200 × 8</span></span>
-<span class="co">#&gt;        t1    t2     t3     k      t x1    x2    x3   </span>
-<span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 3.03   1.03  0.642      3 0.642  FALSE FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 1.94   0.265 0.021<span style="text-decoration: underline;">1</span>     3 0.021<span style="text-decoration: underline;">1</span> FALSE FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 0.274  0.409 2.14       1 0.274  TRUE  TRUE  FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 0.247  1.42  0.181      3 0.181  FALSE TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1.78   0.246 0.066<span style="text-decoration: underline;">8</span>     3 0.066<span style="text-decoration: underline;">8</span> TRUE  TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 1.78   0.566 1.19       2 0.566  FALSE TRUE  FALSE</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 0.684  0.291 0.123      3 0.123  FALSE FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 0.037<span style="text-decoration: underline;">6</span> 1.53  0.517      1 0.037<span style="text-decoration: underline;">6</span> TRUE  FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 0.925  1.42  0.685      3 0.685  FALSE TRUE  TRUE </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2.37   0.548 0.068<span style="text-decoration: underline;">7</span>     3 0.068<span style="text-decoration: underline;">7</span> FALSE FALSE TRUE </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 190 more rows</span></span>
-<span class="co">#&gt; Maximum likelihood estimator, of type mle_numerical ,</span>
-<span class="co">#&gt; is normally distributed with mean</span>
-<span class="co">#&gt;       [,1]</span>
-<span class="co">#&gt; [1,] 0.682</span>
-<span class="co">#&gt; [2,] 1.127</span>
-<span class="co">#&gt; [3,] 1.573</span>
-<span class="co">#&gt; and variance-covariance</span>
-<span class="co">#&gt;          [,1]     [,2]     [,3]</span>
-<span class="co">#&gt; [1,]  0.02231 -0.00666 -0.00413</span>
-<span class="co">#&gt; [2,] -0.00666  0.03072 -0.00500</span>
-<span class="co">#&gt; [3,] -0.00413 -0.00500  0.03572</span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; The asymptotic mean squared error 0.0888 </span>
-<span class="co">#&gt; The asymptotic 95% confidence interval is</span>
-<span class="co">#&gt;   2.5 % 97.5 %</span>
-<span class="co">#&gt; 1 0.436  0.927</span>
-<span class="co">#&gt; 2 0.839  1.416</span>
-<span class="co">#&gt; 3 1.262  1.883</span>
-<span class="co">#&gt; The log-likelihood is -80.8 </span>
-<span class="co">#&gt; The AIC is 168</span></code></pre>
+<p>Let us compute estimates of the bias, variance-covariance, and mean squared error as a function of sample size <span class="math inline">\(n\)</span> using Monte Carlo simulation. Note that this is similar to the Bootstrap, except we know <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p>
+<p>A primary statistic is the <em>confidence interval</em>. A <span class="math inline">\((1-\alpha)100\%\)</span> confidence interval for <span class="math inline">\(\theta_j\)</span> may be estimated with <span class="math inline">\(\hat\theta_j \pm z_{1-\alpha/2} \sqrt{\hat{V}_{j j}}\)</span>. We provide a method for doing this calculation:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">as_tibble</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint</a></span><span class="op">(</span><span class="va">mle</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">mutate</span><span class="op">(</span>length<span class="op">=</span><span class="va">.</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">-</span><span class="va">.</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="right">2.5 %</th>
+<th align="right">97.5 %</th>
+<th align="right">length</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.99</td>
+<td align="right">1.00</td>
+<td align="right">0.013</td>
+</tr>
+<tr class="even">
+<td align="right">1.25</td>
+<td align="right">1.26</td>
+<td align="right">0.015</td>
+</tr>
+<tr class="odd">
+<td align="right">1.75</td>
+<td align="right">1.76</td>
+<td align="right">0.017</td>
+</tr>
+</tbody>
+</table>
+<p>How does this compare to the confidence intervals given that the candidate sets are generated using the Bernoulli candidate model with a different choice of parameters? First, we generate a new MLE using a different sample of masked data, <code>new.md</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">new.md</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span></span>
+<span>    t1<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n</span>,rate<span class="op">=</span><span class="va">theta</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    t2<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n</span>,rate<span class="op">=</span><span class="va">theta</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    t3<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n</span>,rate<span class="op">=</span><span class="va">theta</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>    <span class="fu"><a href="../reference/md_series_lifetime.html">md_series_lifetime</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>    <span class="fu"><a href="../reference/md_bernoulli_candidate_C1_C2_C3.html">md_bernoulli_candidate_C1_C2_C3</a></span><span class="op">(</span>m<span class="op">=</span><span class="fl">3</span>,p<span class="op">=</span><span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">.333</span>,<span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/md_loglike_exp_series_C1_C2_C3.html">md_loglike_exp_series_C1_C2_C3</a></span><span class="op">(</span><span class="va">new.md</span><span class="op">)</span></span>
+<span><span class="va">scr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/md_score_exp_series_C1_C2_C3.html">md_score_exp_series_C1_C2_C3</a></span><span class="op">(</span><span class="va">new.md</span><span class="op">)</span></span>
+<span><span class="va">mle.new</span> <span class="op">&lt;-</span> <span class="fu">mle_gradient_ascent</span><span class="op">(</span>l<span class="op">=</span><span class="va">l</span>,theta0<span class="op">=</span><span class="va">theta</span>,score<span class="op">=</span><span class="va">scr</span><span class="op">)</span></span></code></pre></div>
+<p>Let’s compare the lengths of the confidence intervals:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">as_tibble</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint</a></span><span class="op">(</span><span class="va">mle</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">mutate</span><span class="op">(</span>length<span class="op">=</span><span class="va">.</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">-</span><span class="va">.</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="right">2.5 %</th>
+<th align="right">97.5 %</th>
+<th align="right">length</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.99</td>
+<td align="right">1.00</td>
+<td align="right">0.013</td>
+</tr>
+<tr class="even">
+<td align="right">1.25</td>
+<td align="right">1.26</td>
+<td align="right">0.015</td>
+</tr>
+<tr class="odd">
+<td align="right">1.75</td>
+<td align="right">1.76</td>
+<td align="right">0.017</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">as_tibble</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint</a></span><span class="op">(</span><span class="va">mle.new</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">mutate</span><span class="op">(</span>length<span class="op">=</span><span class="va">.</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">-</span><span class="va">.</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="right">2.5 %</th>
+<th align="right">97.5 %</th>
+<th align="right">length</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.996</td>
+<td align="right">1.01</td>
+<td align="right">0.012</td>
+</tr>
+<tr class="even">
+<td align="right">1.247</td>
+<td align="right">1.26</td>
+<td align="right">0.013</td>
+</tr>
+<tr class="odd">
+<td align="right">1.741</td>
+<td align="right">1.76</td>
+<td align="right">0.015</td>
+</tr>
+</tbody>
+</table>
+<p>We see that the lengths of the confidence intervals are significantly shorter.</p>
+<p>If <em>no</em> information is provided about the component cause of failure in a series system with <span class="math inline">\(m\)</span> components, then the <span class="math inline">\(m_0\)</span> estimator is not unique and does not converge to <span class="math inline">\(\boldsymbol{\theta}\)</span>.</p>
 </div>
+<div class="section level3">
+<h3 id="estimating-the-variance-covariance-using-the-bootstrap-method">Estimating the variance-covariance using the Bootstrap method<a class="anchor" aria-label="anchor" href="#estimating-the-variance-covariance-using-the-bootstrap-method"></a>
+</h3>
+<p>Alternatively, we could estimate <span class="math inline">\(\boldsymbol{\theta}\)</span> with <span class="math inline">\(B\)</span> simulated draws from the MLEs that satisfy <span class="math display">\[
+\operatorname{argmax}_{\boldsymbol{\theta }\in \boldsymbol{\Omega}} \ell(\boldsymbol{\theta}|\mathcal{D_i})
+\]</span> where <span class="math inline">\(\mathcal{\boldsymbol{D_i}}\)</span> is a random sample from the empirical distribution <span class="math inline">\(\{(S_i,\delta_i,C_i)\}_1^n\)</span>. We call this the <em>Bootstrap</em>.</p>
+<p>Assuming the above solution to the MLE equation is <em>unique</em>, this gives us a single point <span class="math inline">\(\hat{\boldsymbol{\theta}}_{(i)}\)</span> when conditioned on the simulated masked data <span class="math inline">\(\boldsymbol{D_i}\)</span>.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">algebraic.mle</span><span class="fu">::</span><span class="fu"><a href="https://queelius.github.io/algebraic.mle/reference/bias.html" class="external-link">bias</a></span><span class="op">(</span><span class="va">mle</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0 0 0 0 0 0 0 0 0</span></span></code></pre></div>
+<div class="section level4">
+<h4 id="sampling-distribution-of-the-mle-1">Sampling distribution of the MLE<a class="anchor" aria-label="anchor" href="#sampling-distribution-of-the-mle-1"></a>
+</h4>
+<p>We know that <span class="math display">\[
+\hat{\boldsymbol{\theta}} \sim \mathcal{N}\bigl(\boldsymbol{\theta},J^{-1}(\boldsymbol{\theta})\bigr).
+\]</span> We can estimate the sampling distribution of <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> with <span class="math inline">\(\mathcal{N}\bigl(\hat\theta,J^{-1}(\hat{\boldsymbol{\theta}})\bigr)\)</span>. This makes it trivial to estimate any other function of <span class="math inline">\(\boldsymbol{\theta}\)</span> by sampling from the approximation:</p>
+<p>In Figure 2, we show contour plots of the first two components for the MLE sample.</p>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="estimating-component-cause">Estimating component cause<a class="anchor" aria-label="anchor" href="#estimating-component-cause"></a>
+</h2>
+<p>Another characteristic we may wish to estimate is the probability that a particular component in an observation caused the system failure.</p>
+<p>We wish to use as much information as possible to do this estimation. We consider three cases:</p>
+<ol style="list-style-type: decimal">
+<li><p>We have masked data <code>md</code> with candidate sets and system failure times and seek to estimate the node failure probabilities of observations in this data. This case provides the most accurate estimates of the node probability failures, as have both system failure times and candidate sets as predictors of the node failure.</p></li>
+<li><p>We have a new observation of a system failure time and an estimate of <span class="math inline">\(\theta\)</span> from <code>md</code>. In this case, we cannot condition on candidate sets, since the observation does not include that information. However, we do have a system failure time.</p></li>
+<li><p>We have an estimate of <span class="math inline">\(\boldsymbol{\theta}\)</span> from <code>md</code> but wish to predict the node failure of a system that has failed, but we do not know when it failed.</p></li>
+</ol>
+<p>We consider case 1 described above where we have masked data <code>md</code> that includes both candidate sets and system failure times.</p>
+<p>In this case, we are interested in <span class="math display">\[
+    f_{K_i|C_i,T_i}(j|c_i,t_i,\boldsymbol{\theta}) = \frac{h_j(t;\boldsymbol{\theta_k})}{\sum_{j' \in c_i} h_{j'}(t_i;\boldsymbol{\theta_{j'}})},
+\]</span> which in the exponential series case simplifies to <span class="math display">\[
+    f_{K_i|C_,T_i}(j|c_i,t_i,\boldsymbol{\theta}) = \frac{\boldsymbol{\theta_j}}{\sum_{j' \in c_i} \boldsymbol{\theta_{j'}}}.
+\]</span></p>
+<p>We decorate <code>md</code> with this probability distribution with the decorator function <code>md_series_component_failure_probability</code>, which accepts masked data as input and returns the masked data with columns for component cause of failure probabilities given by <code>k1</code>,…,<code>km</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#h &lt;- list(function(t) theta.hat[1],</span></span>
+<span><span class="co">#          function(t) theta.hat[2],</span></span>
+<span><span class="co">#          function(t) theta.hat[3])</span></span>
+<span><span class="co">#md %&gt;% md_series_component_failure_probability_decorator(h)</span></span></code></pre></div>
+<p>We notice that every row over the columns <code>k1</code>, <code>k2</code>, and <code>k3</code> given a specific candidate set are the same. This is as expected, since in the case of the exponential series, the component failure rates are constant with respect to system failure time.</p>
+<p>If we already had an estimate of <span class="math inline">\(\boldsymbol{\theta}\)</span> and we sought to predict the failed components from only system lifetime data, we would just let the candidate sets contain all of the component indexes.</p>
+<p>Also, observe that the component failure probabilities <span class="math display">\[
+    \hat{\boldsymbol{k}}_i(\boldsymbol{\theta}) = (\hat{k}_1,\hat{k}_2,\hat{k}_3)'
+\]</span> is a random vector whose sampling distribution under the right conditions is a multivariate normal whose <span class="math inline">\(j\)</span> component is given by <span class="math display">\[
+    \hat{k}_j \sim \mathcal{N}(f_{K_i|T_i}(j|t_i,\boldsymbol{\theta}),\boldsymbol{\Sigma}_i).
+\]</span> We can simulate <span class="math inline">\(n\)</span> draws from <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> and then apply the above statistic of interest, generating the data <span class="math display">\[
+    \hat{\boldsymbol{k}}^{(1)},\ldots,\hat{\boldsymbol{k}}^{(n)}.
+\]</span></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -513,7 +632,7 @@ a function or procedure <code>p : integer -&gt; [0,1]</code>, defaults to <code>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>

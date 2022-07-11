@@ -1,10 +1,11 @@
 pandoc: 2.7.3
-pkgdown: 2.0.3
+pkgdown: 2.0.5
 pkgdown_sha: ~
 articles:
   exponential: exponential.html
+  general_series: general_series.html
   weibull: weibull.html
-last_built: 2022-06-09T10:38Z
+last_built: 2022-07-11T03:57Z
 urls:
   reference: https://queelius.github.io/series_system_estimation_masked_data/reference
   article: https://queelius.github.io/series_system_estimation_masked_data/articles

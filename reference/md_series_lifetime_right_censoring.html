@@ -18,7 +18,7 @@ component lifetimes encoded by the matrix columns prefixed with t"><!-- mathjax 
     
     <a class="navbar-brand me-2" href="../index.html">series.system.estimation.masked.data</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,7 @@ component lifetimes encoded by the matrix columns prefixed with t"><!-- mathjax 
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/exponential.html">Series system with exponentially distributed component lifetimes</a>
+    <a class="dropdown-item" href="../articles/general_series.html">General series system with component lifetimes that are in different parametric families</a>
     <a class="dropdown-item" href="../articles/weibull.html">Series system with Weibull distributed component lifetimes</a>
   </div>
 </li>
@@ -61,19 +62,24 @@ component lifetimes encoded by the matrix columns prefixed with <code>t</code></
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">md_series_lifetime_right_censoring</span><span class="op">(</span><span class="va">md</span>, <span class="va">tau</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">md_series_lifetime_right_censoring</span><span class="op">(</span><span class="va">md</span>, <span class="va">tau</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>md</dt>
 <dd><p>a data frame with the indicated component times-to-failure</p></dd>
+
+
 <dt>tau</dt>
 <dd><p>vector of right-censoring times</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>masked data decorated with series lifetime and component cause of failure</p>
+    
+
+<p>masked data decorated with series lifetime and component cause of failure</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -85,7 +91,7 @@ component lifetimes encoded by the matrix columns prefixed with <code>t</code></
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
