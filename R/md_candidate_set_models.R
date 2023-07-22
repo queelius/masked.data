@@ -98,38 +98,40 @@ md_bernoulli_cand_C1_kld <- function(
 #' with probability `p`.
 #'
 #' @param md masked data.
-#' @param p a parameter vector of probabilities
+#' @param p a vector of probabilities
 #' @param compvar column name of the component lifetime variables, defaults to
 #'                `t`, e.g., `t1, t2, ..., tm`.
 #' @param qvar column prefix for component probabilities, defaults to `q`,
 #'             e.g., `q1, q2, ..., qm`.
+#' @param deltavar column name of the right-censoring indicator variable, 
+#'                 defaults to `delta`.
 #' @importFrom md.tools md_decode_matrix md_encode_matrix
 #' @importFrom dplyr %>% bind_cols
 #' @export
-md_bernoulli_cand_C1_C2_C3 <- function(md,p,compvar="t",qvar="q")
+md_bernoulli_cand_C1_C2_C3 <- function(md, p,
+    compvar = "t",
+    qvar = "q",
+    deltavar = "delta")
 {
-    Tm <- md_decode_matrix(md, compvar)
-    stopifnot(!is.null(Tm))
-    m <- ncol(Tm)
-    n <- nrow(Tm)
-    stopifnot(n > 0, m > 0)
-
-    Q <- matrix(rep(p,n*m), nrow=n)
-    #for (i in 1:n)
-    #    Q[i,which.min(Tm[i,])] <- 1
-    Q[cbind(1:n, apply(Tm, 1, which.min))] <- 1
-    if ("delta" %in% colnames(md))
-    {
-        Q[which(md$delta),] <- 0
-        #for (i in 1:n)
-        #{
-        #    if (md$delta[i])
-        #        Q[i,] <- rep(0,m)
-        #}
+    n <- nrow(md)
+    if (n == 0) {
+        return(md)
     }
-
-    md[,paste0(qvar,1:m)] <- NULL
-    md %>% bind_cols(md_encode_matrix(Q,qvar)) %>% md_mark_latent(paste0(qvar,1:m))
+    p <- rep(p, length.out = n)
+    Tm <- md_decode_matrix(md, compvar)
+    if (is.null(Tm)) {
+        stop("No component lifetime variables found")
+    }
+    m <- ncol(Tm)
+    Q <- matrix(rep(p, m), nrow = n)
+    Q[cbind(1:n, apply(Tm, 1, which.min))] <- 1
+    if (!is.null(deltavar) && deltavar %in% colnames(md)) {
+        Q[which(md[[deltavar]]),] <- 0
+    }
+    # remove in case it already has columns for q1,...,qm
+    md[ ,paste0(qvar, 1:m)] <- NULL
+    md %>% bind_cols(md_encode_matrix(Q, qvar)) %>%
+           md_mark_latent(paste0(qvar, 1:m))
 }
 
 #' md_cand_sampler

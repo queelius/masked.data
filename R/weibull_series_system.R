@@ -1,4 +1,4 @@
-#' Weibull series
+#' Weibull series system
 #'
 #' This file contains functions related to the Weibull series distribution.
 #' Functions include simulation, pdf, cdf, quantile, and other related

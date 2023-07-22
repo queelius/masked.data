@@ -7,15 +7,24 @@ competing risks) with respect to parameter \code{theta} for masked component
 failure (or masked competing risks) with candidate sets (risks) that
 approximately satisfy conditions C1, C2, and C3.}
 \usage{
-md_score_exp_series_C1_C2_C3(md, setvar = "x", sysvar = "t")
+md_score_exp_series_C1_C2_C3(md, options = list(), ...)
 }
 \arguments{
 \item{md}{right-censored failure-time data with masked competing risks}
 
-\item{setvar}{prefix of Boolean matrix encoding of candidate sets, defaults
-to \code{x}, e.g., \verb{x1,...,xm}.}
+\item{options}{list of options
+\itemize{
+\item \code{set.var} prefix of Boolean matrix encoding of candidate sets, defaults
+to \code{x}, e.g., \verb{x1,...,xm}.
+\item \code{sys.var} system lifetime (optionally right-censored) column name,
+defaults to \code{t}
+\item \code{delta.var} right-censoring indicator column name. If \code{NULL}, then
+no right-censoring is assumed. If a system lifetime is
+right-censored (\emph{not} observed), the right-censoring
+indicator is \code{TRUE}, otherwise it is \code{FALSE}.
+}}
 
-\item{sysvar}{system lifetime (optionally right-censored) column name}
+\item{...}{pass additional arguments to \code{options}}
 }
 \value{
 score function of type \code{R^m -> R}

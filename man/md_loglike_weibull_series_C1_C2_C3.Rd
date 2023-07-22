@@ -2,20 +2,34 @@
 % Please edit documentation in R/md_weibull_series_system.R
 \name{md_loglike_weibull_series_C1_C2_C3}
 \alias{md_loglike_weibull_series_C1_C2_C3}
-\title{Log-likelihood generator for Weibull series system on masked data,
-where the masked data is in the form of right-censored system lifetimes
-and masked component cause of failure.}
+\title{Generates a log-likelihood function for a Weibull series system with respect
+to parameter \code{theta} (shape, scale) for masked data with candidate sets
+that satisfy conditions C1, C2, and C3.}
 \usage{
-md_loglike_weibull_series_C1_C2_C3(md)
+md_loglike_weibull_series_C1_C2_C3(
+  md,
+  setvar = "x",
+  sysvar = "t",
+  deltavar = "delta"
+)
 }
 \arguments{
 \item{md}{masked data}
+
+\item{setvar}{prefix of Boolean matrix encoding of candidate sets, defaults
+to \code{x}, e.g., \verb{x1,...,xm}.}
+
+\item{sysvar}{system lifetime (optionally right-censored) column name}
+
+\item{deltavar}{right-censoring indicator column name, if TRUE, then the
+system lifetime is right-censored (\emph{not} observed),
+otherwise it is observed (\emph{not} right-censored).}
 }
 \value{
-a log-likelihood function with respect to theta given md
+A log-likelihood function with respect to \code{theta} given \code{md}
 }
 \description{
-Log-likelihood generator for Weibull series system on masked data,
-where the masked data is in the form of right-censored system lifetimes
-and masked component cause of failure.
+Generates a log-likelihood function for a Weibull series system with respect
+to parameter \code{theta} (shape, scale) for masked data with candidate sets
+that satisfy conditions C1, C2, and C3.
 }

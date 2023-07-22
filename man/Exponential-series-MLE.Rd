@@ -2,7 +2,7 @@
 % Please edit documentation in R/md_exp_series_system.R
 \name{Exponential series MLE}
 \alias{Exponential series MLE}
-\title{Exponential series MLE}
+\title{Exponential series log-likelihood model}
 \description{
 Maximum likelihood estimation functions for
 Exponential series systems from masked data. Functions

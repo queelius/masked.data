@@ -8,7 +8,12 @@ system lifetimes and masked component cause of failure. Note that if the
 right censoring indicator variable \code{delta} is missing, we assume that all
 system lifetimes are observed.}
 \usage{
-md_score_weibull_series_C1_C2_C3(md, sysvar = "t", setvar = "x")
+md_score_weibull_series_C1_C2_C3(
+  md,
+  sysvar = "t",
+  setvar = "x",
+  deltavar = "delta"
+)
 }
 \arguments{
 \item{md}{masked data}
@@ -16,6 +21,10 @@ md_score_weibull_series_C1_C2_C3(md, sysvar = "t", setvar = "x")
 \item{sysvar}{name of the system lifetime column}
 
 \item{setvar}{prefix symbol for the candidate sets column}
+
+\item{deltavar}{right-censoring indicator column name, if TRUE, then the
+system lifetime is right-censored (\emph{not} observed),
+otherwise it is observed (\emph{not} right-censored).}
 }
 \value{
 a score function with respect to theta given md

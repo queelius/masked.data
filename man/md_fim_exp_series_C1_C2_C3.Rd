@@ -6,16 +6,11 @@
 system with respect to parameter \code{theta} for masked data with candidate
 sets that approximately satisfy conditions C1, C2, and C3.}
 \usage{
-md_fim_exp_series_C1_C2_C3(md, setvar = "x", sysvar = "t")
+md_fim_exp_series_C1_C2_C3(md, options = list(), ...)
 }
 \arguments{
 \item{md}{masked data with candidate sets that meet the
 regular candidate model}
-
-\item{setvar}{prefix of Boolean matrix encoding of candidate sets, defaults
-to \code{x}, e.g., \verb{x1,...,xm}.}
-
-\item{sysvar}{system lifetime (optionally right-censored) column name}
 }
 \value{
 observed information matrix of type \verb{R^m -> R^(m x m)}

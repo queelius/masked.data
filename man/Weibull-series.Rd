@@ -2,7 +2,7 @@
 % Please edit documentation in R/weibull_series_system.R
 \name{Weibull series}
 \alias{Weibull series}
-\title{Weibull series}
+\title{Weibull series system}
 \description{
 This file contains functions related to the Weibull series distribution.
 Functions include simulation, pdf, cdf, quantile, and other related

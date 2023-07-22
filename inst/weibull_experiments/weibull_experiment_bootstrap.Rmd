@@ -1,0 +1,318 @@
+---
+title: "Weibull series system - boostrap study"
+author: "Alex Towell"
+date: "2023-03-21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r loadlibs, echo=FALSE, warning=FALSE, message=FALSE}
+library(algebraic.mle)
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+library(knitr)
+library(md.tools)
+library(md.series.system)
+library(utils)
+library(tidyverse)
+library(gridExtra)
+```
+
+The purpose of this data set is to analyze the sensivity of the
+Weibull series system (7 components) with respect to a sample size.
+
+> Let's think about how to define the component parameters so that we
+> get a nice spread of values.  We want to have a range of values for
+> the parameters, but we also want to have a range of values for the
+> failure times. We can consider each component in isolation, and make
+> some of them have a high "infant" mortality rate, and some of them
+> have a low "infant" mortality rate.  Others can have a high "old age"
+> mortality rate, and some can have a low "old age" mortality rate.
+> The remaing components can have a high "wear out" mortality rate, and
+> some can have a low "wear out" mortality rate.
+>
+> We should plot the pdf of the Weibull distributions and see that we get
+> a nice spread of values.
+
+Here is how we generated this data set (we do not evaluate this code, since
+we already generated the data set and saved it to a file):
+
+```{r run-exp-experiment-3, eval=FALSE}
+# setwd("./weibull_experiments")
+source("weibull_experiment_gen.R")
+
+n <- 1000
+theta <- c(10, 9, 2, 15, 8, 10)
+tau <- 1000
+p <- .333
+weibull_generate_data(n = n, theta = theta, tau = tau, p = p)
+
+weibull_experiment_gen(
+    R = 10,
+    bernoulli_probs = .333,
+    quants = .25,
+    sample_sizes = c(5, 10, 15, 20, 25, 30, 35, 40,
+        45, 50, 60, 70, 80, 90, 100, 250, 500, 1000, 2000),
+    theta = c(1, 10, 2, 20, 3, 30),
+    seed = 57231,
+    use_aneal_start = TRUE,
+    append = FALSE,
+    csv_filename = "weibull_experiment_1.csv")
+```
+
+
+We read the data set from the file with:
+```{r load-exp-experiment-3}
+df <- read.csv("weibull_experiment_1.csv")
+head(df, n = 6)
+```
+
+
+## Coverage Probability
+```{r visualize-coverage}
+df_long <- df %>% pivot_longer(
+    cols = starts_with("coverage"),
+    names_to = "Coverage",
+    values_to = "Value")
+
+# Convert the "Coverage" column to a factor for better plotting
+df_long$Coverage <- as.factor(df_long$Coverage)
+
+# Plot, with a solid line for the asymptotic coverage probability
+# for 0.95% confidence level
+ggplot(df_long, aes(x = N, y = Value, color = Coverage)) +
+  geom_point() +
+  geom_line() +
+  geom_hline(yintercept = 0.95, linetype = "dashed") +
+  labs(x = "Sample Size (N)", y = "Coverage Probability",
+    title = "Coverage Probability vs Sample Size", color = "Coverage")
+```
+
+### Analysis
+
+Analysis here.
+
+
+## Bias
+```{r visualize-bias, fig.width=8, fig.height=5}
+############# BIAS #############
+df_long <- df %>% pivot_longer(
+    cols = starts_with("bias"),
+    names_to = "Bias",
+    values_to = "Value")
+
+# Convert the "Bias" column to a factor for better plotting
+df_long$Bias <- as.factor(df_long$Bias)
+
+# Plot, with a solid blue line for the asymptotic zero bias
+ggplot(df_long, aes(x = N, y = Value, color = Bias)) +
+  geom_point() +
+  geom_line() +
+  geom_hline(yintercept = 0, color = "blue", linetype = "dashed") +
+  labs(x = "Sample Size (N)", y = "Bias",
+       title = "Bias vs Sample Size", color = "Bias")
+```
+
+
+### Analysis
+
+Analysis here.
+
+## Mean Squared Error
+
+```{r visualize-mse, fig.width=8, fig.height=5}
+cutoff <- 70
+df_small <- df %>% filter(N <= cutoff)
+df_large <- df %>% filter(N > cutoff)
+
+p1 <- ggplot(df_small) +
+  geom_point(aes(x = N, y = mse)) +
+  geom_line(aes(x = N, y = mse,
+                color = "Simulation")) +
+  geom_line(aes(x = N, y = mse_asym,
+                color = "Asymptotic"),
+            linetype = "dashed") +
+  labs(x = "Small Sample Size", y = "Mean Squared Error",
+       title = "Mean Squared Error vs Small Sample Size")
+
+p2 <- ggplot(df_large) +
+  geom_point(aes(x = N, y = mse)) +
+  geom_line(aes(x = N, y = mse,
+                color = "Simulation")) +
+  geom_line(aes(x = N, y = mse_asym,
+                color = "Asymptotic"),
+            linetype = "dashed") +
+  labs(x = "Large Sample Size", y = "Mean Squared Error",
+       title = "Mean Squared Error vs Large Sample Size")
+library(gridExtra)
+grid.arrange(p1, p2, ncol = 2)
+```
+
+
+
+### Analysis
+
+Analysis here.
+
+## Standard Error
+
+```{r visualize-se, fig.width=8, fig.height=5}
+df_long <- df %>% pivot_longer(
+    # regex to match column names "se<digit>"
+    cols = matches("se[0-9]"),
+    names_to = "SE",
+    values_to = "Value")
+
+# Convert the "SE" column to a factor for better plotting
+df_long$SE <- as.factor(df_long$SE)
+
+# Combine the two plots using facet
+df_long$Group <- ifelse(df_long$N <= 150, "N < 150", "N >= 150")
+ggplot(df_long, aes(x = N, y = Value, color = SE)) +
+    geom_point() +
+    geom_line() +
+    facet_wrap(~ Group, scales = "free") +
+    labs(x = "Sample Size (N)", y = "SE",
+        title = "SE vs Sample Size", color = "SE")
+```
+
+### Analysis
+
+Analysis here.
+
+## Ratio of SE to Asymptotic SE
+
+```{r fig.width=8, fig.height=6, fig.align="center", fig.cap="Ratio of SE to Asymptotic SE"}
+cutoff <- 70
+
+df_ratio <- df %>% mutate(
+    Ratio1 = se_asym1/se1,
+    Ratio2 = se_asym2/se2,
+    Ratio3 = se_asym3/se3,
+    Ratio4 = se_asym4/se4,
+    Ratio5 = se_asym5/se5,
+    Ratio6 = se_asym6/se6,
+    Ratio7 = se_asym7/se7) %>%
+    select(matches("Ratio[0-9]"), N) %>%
+    mutate(mean_ratio = rowMeans(select(., matches("Ratio[0-9]"))))
+df_ratio_small <- df_ratio %>% filter(N <= cutoff)
+df_ratio_large <- df_ratio %>% filter(N > cutoff)
+
+p3 <- ggplot(df_ratio_small, aes(x = N, y = mean_ratio)) +
+  geom_point() +
+  geom_line() +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  ylim(0, 7) +
+  labs(x = "Sample Size (N)", y = "Mean Ratio of Asymptotic to Simulated SE",
+       title = "Mean Ratio of Asymptotic to Simulated SE vs Small Sample Size")
+
+p4 <- ggplot(df_ratio_large, aes(x = N, y = mean_ratio)) +
+  geom_point() +
+  geom_line() +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  ylim(0, 7) +
+  labs(x = "Sample Size (N)", y = "Mean Ratio of Asymptotic to Simulated SE",
+       title = "Mean Ratio of Asymptotic to Simulated SE vs Large Sample Size")
+
+df_ratio_long <- df_ratio %>%
+    pivot_longer(
+        cols = matches("Ratio[0-9]"),
+        names_to = "Ratio",
+        values_to = "Value"
+    )
+
+
+# Split df_ratio_long into two dataframes by sample size
+df_ratio_long_small <- df_ratio_long %>% filter(N < cutoff)
+df_ratio_long_large <- df_ratio_long %>% filter(N >= cutoff)
+
+# Create the two plots
+p1 <- ggplot(df_ratio_long_small, aes(x = N, y = Value, color = Ratio)) +
+  geom_point() +
+  geom_line() +
+  labs(x = "Small Sample Size",
+       y = "Ratio of Asymptotic to Simulated SE",
+       title = "Ratio of Asymptotic to Monte Carlo SE vs Small Samples",
+       color = "Ratio")
+
+p2 <- ggplot(df_ratio_long_large, aes(x = N, y = Value, color = Ratio)) +
+  geom_point() +
+  geom_line() +
+  labs(x = "Large Sample Size",
+       y = "Ratio of Asymptotic to Simulated SE",
+       title = "Ratio of Asymptotic to Monte Carlo SE vs Large Samples",
+       color = "Ratio")
+
+# Arrange the plots side by side
+grid.arrange(p1, p2, p3, p4, ncol = 2, nrow = 2)
+```
+
+
+### Analysis
+
+Analysis here.
+
+
+
+
+
+
+
+
+
+## Frobenius Norm
+
+The Frobenius norm is a matrix norm of an $m \times n$ matrix $A$ which is
+defined as the square root of the sum of the absolute squares of its elements.
+
+We will take the Frobenius norm between a sample covariance matrix (without
+the Bessel correction so that it is the MLE estimate of the variance-covariance
+of the MLE) and the inverse of the Fisher Information Matrix (FIM) of the MLE.
+
+The Fisher Information Matrix is a way of measuring the amount of information
+that an observable random variable carries about an unknown parameter upon which
+its probability distribution depends. The inverse of the FIM (IFIM) often serves
+as a lower bound on the covariance of any unbiased estimator (the Cramér–Rao
+bound).
+
+The Frobenius norm of the difference between these two matrices may be seen as a
+measure of discrepancy between the sample covariance matrix and the inverse FIM.
+This discrepancy could be due to many factors, including the inherent randomness
+in the sample, the number of samples, or the model assumptions (the assumed
+distribution of the data, for example).
+
+We will use this measure of discrepancy as a diagnostic tool for evaluating
+our model. If the discrepancy is small, it could indicate that our model
+assumptions are reasonable, and that our sample provides a good approximation of
+the distribution of our data. If the discrepancy is large, however, it could
+indicate that our model assumptions might need to be revisited, or that we need
+more data to get a good estimate of the covariance matrix.
+
+There is no objective definition for what constitutes a "small" or "large"
+discrepancy, e.g., it depend on the specific context or the scale of our data.
+
+Remember that while the Frobenius norm can provide a useful summary of the
+discrepancy, it might not tell the whole story. For example, two matrices could
+have a small Frobenius norm of their difference even if they differ
+significantly in some entries, if these differences are balanced out by other
+entries. So depending on our use case, we might also want to look more closely
+at the individual entries of the matrices.
+
+I should also note that using the inverse FIM as a proxy for the covariance
+matrix of the MLE assumes that our model is correctly specified and that we have
+a large enough sample size for the asymptotic properties of the MLE to kick in.
+If these assumptions don't hold, the inverse FIM might not be a good
+approximation of the covariance of the MLE, which could also affect the
+interpretation of the Frobenius norm of their difference.
+
+```{r visualize-frobenius, fig.width=8, fig.height=5}
+
+
+# for this one, maybe we should use a very large sample to make sure the
+# large sampling approximation kicks in
+
+```

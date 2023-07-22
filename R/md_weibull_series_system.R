@@ -80,50 +80,55 @@ md_mle_weibull_series_C1_C2_C3 <- function(md, theta0, control = list(), ...) {
             "md_mle"))
 }
 
-#' Log-likelihood generator for Weibull series system on masked data,
-#' where the masked data is in the form of right-censored system lifetimes
-#' and masked component cause of failure.
+#' Generates a log-likelihood function for a Weibull series system with respect
+#' to parameter `theta` (shape, scale) for masked data with candidate sets
+#' that satisfy conditions C1, C2, and C3.
 #'
 #' @param md masked data
-#' @returns a log-likelihood function with respect to theta given md
+#' @param setvar prefix of Boolean matrix encoding of candidate sets, defaults
+#'               to `x`, e.g., `x1,...,xm`.
+#' @param sysvar system lifetime (optionally right-censored) column name
+#' @param deltavar right-censoring indicator column name, if TRUE, then the
+#'                 system lifetime is right-censored (*not* observed),
+#'                 otherwise it is observed (*not* right-censored).
+#' @returns A log-likelihood function with respect to `theta` given `md`
 #' @importFrom md.tools md_decode_matrix
 #' @export
-md_loglike_weibull_series_C1_C2_C3 <- function(md)
+md_loglike_weibull_series_C1_C2_C3 <- function(
+    md, setvar = "x", sysvar = "t", deltavar = "delta")
 {
-    right_censoring <- "delta" %in% colnames(md)
-    t <- NULL
-    delta <- NULL
-    if (right_censoring)
-    {
-        stopifnot("s" %in% colnames(md))
-        t <- md$s
-        delta <- md$delta
-    }
-    else
-    {
-        stopifnot("t" %in% colnames(md))
-        t <- md$t
-    }
-
-    C <- md_decode_matrix(md,"x")
-    m <- ncol(C)
+    stopifnot(sysvar %in% colnames(md))
     n <- nrow(md)
-    stopifnot(m > 0)
     stopifnot(n > 0)
-    md <- NULL
 
-    function(theta)
-    {
-        # theta should be a parameter vector of length 2*m
-        scales <- theta[(0:(m-1)*2)+1]
-        shapes <- theta[(1:m)*2]
+    delta <- if (!is.null(deltavar)) {
+        if (!deltavar %in% colnames(md)) {
+            stop("deltavar not in colnames(md)")
+        }
+        md[[deltavar]]
+    } else {
+        rep(FALSE, n)
+    }
+    t <- md[[sysvar]]
+    C <- md_decode_matrix(md, setvar)
+    if (is.null(C)) {
+        stop("no candidate sets")
+    }
+    m <- ncol(C)
+
+    function(theta) {
+        k <- length(theta)
+        stopifnot(k == 2 * m)
+        shapes <- theta[seq(1, k, 2)]
+        scales <- theta[seq(2, k, 2)]
 
         s <- 0
-        for (i in 1:n)
-        {
-            s <- s - sum((t[i]/scales)^shapes)
-            if (!right_censoring || !delta[i])
-                s <- s + log(sum(shapes[C[i,]]/scales[C[i,]]*(t[i]/scales[C[i,]])^(shapes[C[i,]]-1)))
+        for (i in 1:n) {
+            s <- s - sum((t[i] / scales)^shapes)
+            if (!delta[i]) {
+                s <- s + log(sum(shapes[C[i,]] / scales[C[i,]] *
+                    (t[i] / scales[C[i,]])^(shapes[C[i,]] - 1)))
+            }
         }
         s
     }
@@ -144,40 +149,55 @@ md_loglike_weibull_series_C1_C2_C3 <- function(md)
 #' @param md masked data
 #' @param sysvar name of the system lifetime column
 #' @param setvar prefix symbol for the candidate sets column
+#' @param deltavar right-censoring indicator column name, if TRUE, then the
+#'                 system lifetime is right-censored (*not* observed),
+#'                 otherwise it is observed (*not* right-censored).
 #' @returns a score function with respect to theta given md
 #' @importFrom md.tools md_decode_matrix
+#' @importFrom numDeriv grad
 #' @export
-md_score_weibull_series_C1_C2_C3 <- function(md, sysvar="t", setvar="x")
-{
-    stopifnot(sysvar %in% colnames(md))
-    C <- md_decode_matrix(md,setvar)
-    stopifnot(!is.null(C))
-    m <- ncol(C)
-    n <- nrow(C)
-    stopifnot(m > 0, n > 0)
-    delta <- ifelse("delta" %in% colnames(md), md$delta, rep(FALSE,nrow(md)))
-    t <- md[,sysvar] # system lifetimes
-    md <- NULL
+md_score_weibull_series_C1_C2_C3 <- function(
+    md,
+    sysvar = "t",
+    setvar = "x",
+    deltavar = "delta") {
 
-    function(theta)
-    {
-        # theta should be a parameter vector of length 2*m
-        scales <- theta[(0:(m-1)*2)+1]
-        shapes <- theta[(1:m)*2]
-
-        scr <- rep(0,m)
-        for (j in 1:m)
-        {
-            s <- 0
-            for (i in 1:n)
-            {
-                s <- s - shapes[j]/scales[j]*(t[i]/scales[j])^shapes[j]/(sum((t[i]/scales)^shapes))
-                if (C[i,j] && !delta[i])
-                    s <- s - shapes[j]^2 * (t[i]/scales[j])^(shapes[j]-1)/
-                        sum(shapes[C[i,]]/scales[C[i,]]*(t[i]/scales[C[i,]])^(shapes[C[i,]]-1))
-            }
-            scr[j] <- s
-        }
+    ll <- md_loglike_weibull_series_C1_C2_C3(md, setvar, sysvar, deltavar)
+    function(theta) {
+        numDeriv::grad(func = ll, x = theta, method.args = list(r = 6))
     }
 }
 
+
+
+
+
+#' @importFrom md.tools md_decode_matrix
+#' @export
+md_loglike_weibull_series_C1_C2_C3_vectorized <- function(
+    md, setvar = "x", sysvar = "t", deltavar = "delta")
+{
+    stopifnot(sysvar %in% colnames(md))
+
+    delta <- ifelse(!is.null(deltavar) && (deltavar %in% colnames(md)), md[ , deltavar], rep(FALSE, nrow(md)))
+    t <- md[ , sysvar]
+    C <- md_decode_matrix(md, setvar)
+    m <- ncol(C)
+    n <- nrow(md)
+    stopifnot(m > 0)
+    stopifnot(n > 0)
+
+    function(theta)
+    {
+        k <- length(theta)
+        stopifnot(k == 2 * m)
+        shapes <- theta[seq(1, k, 2)]
+        scales <- theta[seq(2, k, 2)]
+
+        sum_term <- sum((t/scales)^shapes)
+        log_term <- ifelse(!delta, log(sum(shapes[C]/scales[C]*(t/scales[C])^(shapes[C]-1))), 0)
+
+        s <- -sum_term + sum(log_term)
+        s
+    }
+}

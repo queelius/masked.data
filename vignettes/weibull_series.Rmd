@@ -15,13 +15,11 @@ knitr::opts_chunk$set(
   echo = TRUE,
   comment = "#>")
 
-library(series.system.estimation.masked.data)
 library(algebraic.mle)
 library(md.tools)
 library(tidyverse)
 library(devtools)
 options(digits=4)
-library(printr)
 ```
 
 
@@ -133,6 +131,11 @@ and thus
 
 Note, however, that different ways in which the conditions are met will yield
 MLEs with different sampling distributions, e.g., more or less efficient estimators.
+
+
+
+
+
 
 ### Bernoulli candidate set model #1
 This is a special case of the reduced likelihood model.

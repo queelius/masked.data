@@ -2,22 +2,32 @@
 % Please edit documentation in R/md_exp_series_system.R
 \name{md_loglike_exp_series_C1_C2_C3}
 \alias{md_loglike_exp_series_C1_C2_C3}
-\title{Generates a log-likelihood for an exponential series system with respect to
-parameter \code{theta} for masked data with candidate sets that satisfy conditions
-C1, C2, and C3.}
+\title{Generates a log-likelihood function for an exponential series system with
+respect to rate parameter for masked data with candidate sets that satisfy
+conditions C1, C2, and C3.}
 \usage{
-md_loglike_exp_series_C1_C2_C3(md, setvar = "x", sysvar = "t")
+md_loglike_exp_series_C1_C2_C3(md, options = list(), ...)
 }
 \arguments{
 \item{md}{masked data}
 
-\item{setvar}{prefix of Boolean matrix encoding of candidate sets, defaults
-to \code{x}, e.g., \verb{x1,...,xm}.}
-
-\item{sysvar}{system lifetime (optionally right-censored) column name}
+\item{options}{list of options
+\itemize{
+\item \code{set.var} prefix of Boolean matrix encoding of candidate sets, defaults
+to \code{x}, e.g., \verb{x1,...,xm}.
+\item \code{sys.var} system lifetime (optionally right-censored) column name,
+defaults to \code{t}
+\item \code{delta.var} right-censoring indicator column name. If \code{NULL}, then
+no right-censoring is assumed. If a system lifetime is
+right-censored (\emph{not} observed), the right-censoring
+indicator is \code{TRUE}, otherwise it is \code{FALSE}.
+}}
+}
+\value{
+log-likelihood function
 }
 \description{
-Generates a log-likelihood for an exponential series system with respect to
-parameter \code{theta} for masked data with candidate sets that satisfy conditions
-C1, C2, and C3.
+Generates a log-likelihood function for an exponential series system with
+respect to rate parameter for masked data with candidate sets that satisfy
+conditions C1, C2, and C3.
 }
