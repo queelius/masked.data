@@ -1,10 +1,10 @@
 ---
-title: "Series system with Weibull distributed component lifetimes"
+title: "Relaxed candidate set model: Series system with Weibull distributed component lifetimes"
 output:
     rmarkdown::html_vignette:
         toc: true
 vignette: >
-  %\VignetteIndexEntry{Series system with exponentially distributed component lifetimes}
+  %\VignetteIndexEntry{Relaxed candidate set model: Series system with exponentially distributed component lifetimes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -26,7 +26,7 @@ options(digits=4)
 Introduction
 ============
 
-The R package `series.system.estimation.masked.data` is a framework for
+The R package `?` is a framework for
 estimating the parameters of latent component lifetimes from *masked data*
 in a series system. The masked data comes from two sources:
 

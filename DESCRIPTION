@@ -1,10 +1,10 @@
-Package: md.series.system
-Title: Estimating Reliability of Components in Series from Masked Data
+Package: md_series_system_relaxed_candidate_set_models
+Title: Estimating Reliability of Components in Series from Masked Data with Relaxed Candidate Set Models
 Version: 0.9
 Authors@R: 
     person("Alexander", "Towell", , "lex@metafunctor.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-6443-9897"))
-Description: Set of functions for providing MLEs for lifetime parameters of latent components in series systems.
+Description: Provides a likelihood model for various relaxed masked data (candidate sets) models. The likelihood model is used to estimate the reliability of components in series systems. The package also provides functions for estimating the reliability of components in series systems using the likelihood model. The package is designed to be used in conjunction with the 'algebraic.mle' package.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -32,5 +32,5 @@ Depends:
     R (>= 2.10)
 LazyData: true
 VignetteBuilder: knitr
-URL: https://queelius.github.io/md_series_system/
-BugReports: https://queelius.github.io/md_series_system/issues
+URL: https://queelius.github.io/md_series_system_relaxed_candidate_set_models/
+BugReports: https://queelius.github.io/md_series_system_relaxed_candidate_set_models/issues
